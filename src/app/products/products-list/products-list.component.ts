@@ -4,7 +4,7 @@ import {Product} from "../product.type";
 import {select, Store} from "@ngrx/store";
 import {ProductsState} from "../products.state";
 import {isLoading, products} from "../products.selectors";
-import {createLoadProductsAction} from "../products.actions";
+import {createLoadProductsAction, createRemoveAction} from "../products.actions";
 
 @Component({
   selector: 'app-products-list',
@@ -16,28 +16,31 @@ export class ProductsListComponent {
   products$!: Observable<Product[]>;
   isLoading$!: Observable<boolean>;
 
-  selectedProduct: Product = {
+  defaultProduct: Product = {
     id: -1,
     name: '',
     price: 0
   };
 
+  selectedProduct: Product
+
   constructor(private store: Store<ProductsState>) {
+    this.selectedProduct = this.defaultProduct;
     this.products$ = store.select(products);
     this.isLoading$ = store.select(isLoading);
     store.dispatch(createLoadProductsAction());
   }
 
   select(product: Product) {
-
+    this.selectedProduct = {...product};
   }
 
   remove(product: Product) {
-
+    this.store.dispatch(createRemoveAction({product}))
   }
 
   reset() {
-
+    this.selectedProduct = this.defaultProduct;
   }
 
   save() {

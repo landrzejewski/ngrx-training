@@ -5,6 +5,7 @@ import {StoreModule} from "@ngrx/store";
 import productsReducer from "./prodcuts.reducer";
 import {FormsModule} from "@angular/forms";
 import {EffectsModule} from "@ngrx/effects";
+import {ProductsService} from "./products.service";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import {EffectsModule} from "@ngrx/effects";
   imports: [
     CommonModule,
     StoreModule.forFeature('products', productsReducer),
-    EffectsModule.forFeature([]),
+    EffectsModule.forFeature([ProductsService]),
     FormsModule
   ]
 })
