@@ -1,1 +1,14 @@
-<p>products-list works!</p>
+<div>
+  <input [(ngModel)]="selectedProduct.name" placeholder="Product name">
+  <input type="number" [(ngModel)]="selectedProduct.price" placeholder="Product price">
+  <button (click)="reset()">Reset</button>
+  <button (click)="save()">Save</button>
+</div>
+<div *ngIf="isLoading$ | async">
+  Loading....
+</div>
+<div *ngFor="let product of products$ | async">
+  {{product.name}}
+  <button (click)="select(product)">Select</button>
+  <button (click)="remove(product)">Remove</button>
+</div>
