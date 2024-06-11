@@ -1,5 +1,6 @@
 import {ProductsState} from "./products.state";
-import {createReducer} from "@ngrx/store";
+import {createReducer, on} from "@ngrx/store";
+import {createLoadProductsAction} from "./products.actions";
 
 const initialState: ProductsState = {
   products: [],
@@ -8,6 +9,7 @@ const initialState: ProductsState = {
 
 const productsReducer = createReducer(
   initialState,
+  on(createLoadProductsAction, (state, action) => ({...state, isLoading: true}))
 );
 
 export default productsReducer;
