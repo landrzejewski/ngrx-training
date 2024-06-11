@@ -1,10 +1,11 @@
 import {ProductsState} from "./products.state";
 import {createReducer, on} from "@ngrx/store";
 import {
+  createAddAction,
   createLoadFailedAction,
   createLoadProductsAction,
   createLoadSuccessAction,
-  createRemoveAction
+  createRemoveAction, createUpdateAction
 } from "./products.actions";
 
 const initialState: ProductsState = {
@@ -22,6 +23,12 @@ const productsReducer = createReducer(
     ({products: state.products, isLoading: false})),
   on(createRemoveAction, (state, action) =>
     ({...state, products: state.products.filter(product => product.id !== action.product.id)})
+  ),
+  on(createAddAction, (state, action) =>
+    ({...state, products: [...state.products, {...action.product}]}),
+  ),
+  on(createUpdateAction, (state, action) =>
+    ({...state, products: state.products.map(product => product.id == action.product.id ? {...product, ...action.product} : product)})
   )
 );
 

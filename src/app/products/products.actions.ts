@@ -9,6 +9,11 @@ const createLoadFailedAction = createAction('[Products] LOAD_FAILED', props<{mes
 
 const createRemoveAction = createAction('[Products] REMOVE', props<{product: Product}>());
 
+const createAddAction = createAction('[Products] ADD', props<{product: Product}>());
+
+const createUpdateAction = createAction('[Products] UPDATE', props<{product: Product}>());
+
+
 export {
-  createLoadProductsAction, createLoadSuccessAction, createLoadFailedAction, createRemoveAction
+  createLoadProductsAction, createLoadSuccessAction, createLoadFailedAction, createRemoveAction, createAddAction, createUpdateAction
 }

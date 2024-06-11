@@ -4,7 +4,7 @@ import {Product} from "../product.type";
 import {select, Store} from "@ngrx/store";
 import {ProductsState} from "../products.state";
 import {isLoading, products} from "../products.selectors";
-import {createLoadProductsAction, createRemoveAction} from "../products.actions";
+import {createAddAction, createLoadProductsAction, createRemoveAction, createUpdateAction} from "../products.actions";
 
 @Component({
   selector: 'app-products-list',
@@ -21,7 +21,6 @@ export class ProductsListComponent {
     name: '',
     price: 0
   };
-
   selectedProduct: Product
 
   constructor(private store: Store<ProductsState>) {
@@ -36,7 +35,8 @@ export class ProductsListComponent {
   }
 
   remove(product: Product) {
-    this.store.dispatch(createRemoveAction({product}))
+    this.store.dispatch(createRemoveAction({product}));
+    this.reset();
   }
 
   reset() {
@@ -44,7 +44,13 @@ export class ProductsListComponent {
   }
 
   save() {
-
+    if (this.selectedProduct.id === -1) {
+      const product: Product = {...this.selectedProduct,  id: Math.random()};
+      this.store.dispatch(createAddAction({product}));
+    } else {
+      this.store.dispatch(createUpdateAction({product: this.selectedProduct}));
+    }
+    this.reset();
   }
 
 }
