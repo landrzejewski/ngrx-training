@@ -23,7 +23,7 @@ export class ProductsService {
 
   log$ = createEffect(() => this.actions$
     .pipe(
-      ofType(createLoadProductsAction),
+      //ofType(createLoadProductsAction),
       tap(action => console.log('Executing action: ' + action.type))
     ), {dispatch: false}
   )
